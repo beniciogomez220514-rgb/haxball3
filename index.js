@@ -2,23 +2,23 @@ const express = require('express');
 const HaxballJS = require('haxball.js');
 const app = express();
 
-// Servidor para mantener vivo el host en Render
-app.get('/', (req, res) => res.send('Host de Beni 24/7 Online ⚽'));
+// Esto mantiene vivo el servidor en Render
+app.get('/', (req, res) => res.send('⚽ Host de Beni 24/7 Activo ⚽'));
 app.listen(process.env.PORT || 3000);
 
 HaxballJS.then((HBInit) => {
-    // CONFIGURACIÓN DE LA SALA
+    // CONFIGURACIÓN DE TU SALA
     const room = HBInit({
         roomName: "⚽⚽JUEGAN TODOS CON BENI⚽⚽",
         maxPlayers: 30,
         public: true,
         noPlayer: true,
-        token: "thr1.AAAAAGnLAOEN6T_Hz1rGBg.abUtkVm57IY" // <--- PEGA TU TOKEN GENERADO ACÁ
+        token: "thr1.AAAAAGnLAfpMRrBW9oTMig.N-v0zzFwssY" // <--- PEGÁ TU TOKEN ENTRE LAS COMILLAS
     });
 
     room.onRoomLink = (link) => {
-        console.log("¡SALA ABIERTA!");
-        console.log("Link: " + link);
+        console.log("¡SALA ABIERTA CON ÉXITO!");
+        console.log("Link de la sala: " + link);
     };
 
     // VARIABLES DE TU SCRIPT
@@ -27,7 +27,7 @@ HaxballJS.then((HBInit) => {
     var jueganTodos = false;
     var startTime = true;
 
-    // FUNCIONES DE TU SCRIPT
+    // FUNCIONES AUXILIARES
     function setAdminColor(player) {
         room.setPlayerAvatar(player.id, "★");
         room.setPlayerAdmin(player.id, true);
@@ -37,7 +37,7 @@ HaxballJS.then((HBInit) => {
         room.sendAnnouncement(msg, null, color, "bold");
     }
 
-    // CUANDO ENTRA UN JUGADOR
+    // EVENTO: ENTRA JUGADOR
     room.onPlayerJoin = function(player) {
         room.sendAnnouncement("Bienvenido " + player.name + " ⚽", player.id, 0x00FF00, "bold");
 
@@ -48,7 +48,7 @@ HaxballJS.then((HBInit) => {
         }
     };
 
-    // COMANDOS DE CHAT
+    // EVENTO: CHAT (COMANDOS)
     room.onPlayerChat = function(player, message) {
         // LOGIN ADMIN
         if (message === "!admin " + adminPassword) {
@@ -64,7 +64,7 @@ HaxballJS.then((HBInit) => {
             return false;
         }
 
-        // COMANDOS DE ADMIN
+        // SOLO PARA ADMINS
         if (player.admin) {
             if (message === "!juegantodos on") {
                 jueganTodos = true;
@@ -88,7 +88,7 @@ HaxballJS.then((HBInit) => {
             }
         }
 
-        // COMANDOS PÚBLICOS
+        // COMANDOS PÚBLICOS (KICK / TWITCH / HELP)
         if (message === "!help") {
             room.sendAnnouncement("Comandos disponibles:", player.id, 0x00FF00, "bold");
             room.sendAnnouncement("!kick https://kick.com/benicabj22", player.id, 0x00FF00);
@@ -105,7 +105,7 @@ HaxballJS.then((HBInit) => {
         return true;
     };
 
-    // AUTO START + COOLDOWN
+    // AUTO START CUANDO TERMINA EL PARTIDO
     room.onGameStop = function() {
         if (startTime) {
             room.sendAnnouncement("Nuevo partido en 5 segundos...", null, 0xFFA500, "bold");
@@ -117,7 +117,7 @@ HaxballJS.then((HBInit) => {
         }
     };
 
-    // AUTO ADMIN SI NO HAY
+    // AUTO ADMIN SI LA SALA QUEDA VACÍA
     room.onPlayerLeave = function() {
         var players = room.getPlayerList();
         if (players.length > 0 && !players.some(p => p.admin)) {
