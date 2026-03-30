@@ -13,7 +13,7 @@ HaxballJS.then((HBInit) => {
         maxPlayers: 30,
         public: true,
         noPlayer: true,
-        token: "thr1.AAAAAGnLAfpMRrBW9oTMig.N-v0zzFwssY" // <--- PEGÁ TU TOKEN ENTRE LAS COMILLAS
+        token: "thr1.AAAAAGnLBLWzwxr4uV4RSQ.zzUbgPax2vs" // <--- PEGÁ TU TOKEN ENTRE LAS COMILLAS
     });
 
     room.onRoomLink = (link) => {
