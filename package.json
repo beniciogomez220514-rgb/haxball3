@@ -1,13 +1,13 @@
 {
-  "name": "haxball-host-24-7",
+  "name": "haxball-host-beni",
   "version": "1.0.0",
-  "description": "Servidor para Haxball",
+  "description": "Host 24-7",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "haxball.js": "^1.1.9"
+    "haxball.js": "1.1.8"
   }
 }
